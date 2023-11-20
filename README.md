@@ -28,17 +28,6 @@ Menambah minat baca masyarakat dengan mudah membeli buku secara online, menambah
 ## Penjelasan branding dari aplikasi
 Website akan dibuat secara modern dengan dominasi color palette biru dan putih, tampilan akan mirip-mirip dengan bookstore online yang sudah ada. Tampilan styling website akan menggunakan Bootstrap. 
 
-## Penjelasan model Buku + Dataset
-Dataset buku akan diambil dari kaggle (https://www.kaggle.com/datasets/imtkaggleteam/book-recommendation-good-book-api) dan setiap buku akan memiliki atribut sebagai berikut:
-
-
-| Atribut       | Penjelasan                               |
-| ------------- | ---------------------------------------- |
-| ID            | Id unik tiap buku agar mudah dicari      |
-| Title         | Judul buku                               |
-| Author        | Penulis/writer                          |
-| Num Pages     | Jumlah halaman buku                     |
-
 ## Penjelasan modul - modul umum
 | Modul               | Penjelasan                                                                   |
 | ------------------- | ---------------------------------------------------------------------------- |
@@ -46,14 +35,17 @@ Dataset buku akan diambil dari kaggle (https://www.kaggle.com/datasets/imtkaggle
 | Login               | Modul untuk login ke web, dengan role user sesuai dengan pilihannya saat registrasi (Member, Writer, atau Employee). |
 | Rekomendasi Buku    | User yang masuk ke landing page web tetapi belum menjadi Member akan diberikan beberapa rekomendasi buku untuk menarik minat mereka. |
 
-## Penjelasan modul - modul Member
+## Penjelasan modul - modul Member1
 | Modul                | Penjelasan                                                                   |
 | -------------------- | ---------------------------------------------------------------------------- |
 | Buku dibeli          | Member dapat melihat daftar buku yang telah dibeli sebelumnya.             |
-| Recommendation Buku  | Menampilkan kumpulan buku yang direkomendasikan kepada user berdasarkan genre yang paling banyak dibeli oleh member atau rating yang tinggi. |
 | E-Wallet            | Sistem pembayaran pada website yang memungkinkan member untuk melakukan top up dan mengecek saldo di tab E-Wallet. |
-| Keranjang            | Member dapat memasukkan buku yang ingin dibeli ke dalam keranjang sehingga dapat melakukan checkout nanti. |
 
+## Penjelasan modul - modul Member2
+| Modul                | Penjelasan                                                                   |
+| -------------------- | ---------------------------------------------------------------------------- |
+| Keranjang            | Member dapat memasukkan buku yang ingin dibeli ke dalam keranjang sehingga dapat melakukan checkout nanti. |
+| Katalog Buku         | Menampilkan katalog buku dari buku-buku yang sudah diinput. |
 
 ## Penjelasan modul - modul Writer
 | Modul          | Penjelasan                                                                   |
@@ -75,7 +67,7 @@ Adapun pembagian tugas dalam pengerjaan modul - modul yang diperlukan adalah seb
 
 **1. Muhamad Hanif Nurrifky Wicaksono**
 
-Tampilan dan modul umum + model dan dataset
+Tampilan dan modul umum
 
 **2. Nanda Nathaniela Meizari**
 
@@ -87,11 +79,11 @@ Tampilan dan modul Writer
 
 **4. Rizvanu Satrio Nugroho**
 
-Tampilan dan modul member (buku dibeli, rekomendasi, landing page untuk member)
+Tampilan dan modul member1 (buku dibeli, landing page untuk member, e-wallet)
 
 **5. Muhammad Yusuf Haikal**
 
-Tampilan dan modul member (e-wallet, keranjang)
+Tampilan dan modul member2 (katalog buku, keranjang)
 
 ## Berita Acara
 https://docs.google.com/spreadsheets/d/1Su2OBkcqqKxYDrN0p_m3vsAfPzEv0vd5dwr02b05mYI/edit#gid=0
