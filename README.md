@@ -40,6 +40,7 @@ Website akan dibuat secara modern dengan dominasi color palette biru dan putih, 
 | -------------------- | ---------------------------------------------------------------------------- |
 | Buku dibeli          | Member dapat melihat daftar buku yang telah dibeli sebelumnya.             |
 | E-Wallet            | Sistem pembayaran pada website yang memungkinkan member untuk melakukan top up dan mengecek saldo di tab E-Wallet. |
+| Rekomendasi Buku    | Menunjukkan rekomendasi2 buku kepada member |
 
 ## Penjelasan modul - modul Member2
 | Modul                | Penjelasan                                                                   |
@@ -79,7 +80,7 @@ Tampilan dan modul Writer
 
 **4. Rizvanu Satrio Nugroho**
 
-Tampilan dan modul member1 (buku dibeli, landing page untuk member, e-wallet)
+Tampilan dan modul member1 (buku dibeli, Rekomendasi buku, e-wallet)
 
 **5. Muhammad Yusuf Haikal**
 
