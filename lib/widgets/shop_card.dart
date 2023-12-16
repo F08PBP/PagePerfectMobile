@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:pageperfectmobile/screens/umum/login.dart';
+import 'package:pageperfectmobile/member/list_book.dart';
 
 class ShopItem {
   final String name;
@@ -32,10 +33,14 @@ class ShopCard extends StatelessWidget {
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
           if (item.name == "Tambah Produk") {
           } else if (item.name == "Lihat Produk") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ListBook()),
+            );
           } else if (item.name == "Logout") {
             final response = await request.logout(
                 // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                "https://muhamad-hanif21-tutorial.pbp.cs.ui.ac.id/auth/logout/");
+                "http://10.0.2.2:8000/auth/logout/");
             String message = response["message"];
             if (response['status']) {
               String uname = response["username"];
