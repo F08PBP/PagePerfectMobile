@@ -4,7 +4,8 @@ import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice) {
+void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
+    int jumlahTerjual, int jumlahBuku) {
   int quantity = 1;
 
   showModalBottomSheet(
@@ -21,6 +22,16 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice) {
                 Text(
                   'Title: $bookTitle',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Stok: $jumlahBuku',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Terjual: $jumlahTerjual',
+                  style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 20),
                 Row(
@@ -86,7 +97,6 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice) {
 Future<void> addCart(BuildContext context, String title, int quantity) async {
   final response = await http.post(
     Uri.parse('http://127.0.0.1:8000/member/add_book_to_cart_flutter/'),
-
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },

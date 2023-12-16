@@ -28,13 +28,14 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   }
 
   Future<List<Purchased>> fetchPurchasedItems(int transactionId) async {
-    var url = Uri.parse('http://127.0.0.1:8000/member/show-purchased-json/$transactionId');
+    var url = Uri.parse(
+        'http://127.0.0.1:8000/member/show-purchased-json/$transactionId');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
-        return purchasedFromJson(response.body);
+      return purchasedFromJson(response.body);
     } else {
-        throw Exception('Failed to load purchased items');
+      throw Exception('Failed to load purchased items');
     }
   }
 
@@ -42,16 +43,17 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
     var baseUrl = 'http://127.0.0.1:8000/member/get-book-json/';
     var url = Uri.parse(baseUrl);
 
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
       List<Book> books = bookFromJson(response.body);
-      _bookTitles = Map.fromIterable(books, key: (book) => book.pk, value: (book) => book.fields.title);
+      _bookTitles = Map.fromIterable(books,
+          key: (book) => book.pk, value: (book) => book.fields.title);
       return books;
     } else {
       throw Exception('Failed to load books');
     }
-
   }
 
   @override
@@ -65,7 +67,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
     return _bookTitles[bookId] ?? 'Unknown Book';
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -86,26 +88,35 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
               itemBuilder: (ctx, index) {
                 var transaction = snapshot.data![index];
                 return ExpansionTile(
-                  leading: Icon(Icons.history, color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.history,
+                      color: Theme.of(context).primaryColor),
                   title: Text('Transaction ID: ${transaction.pk}'),
                   subtitle: Text('Date: ${transaction.fields.dateAdded}'),
                   children: <Widget>[
+                    Text('Notes: ${transaction.fields.notes}'),
                     FutureBuilder<List<Purchased>>(
                       future: fetchPurchasedItems(transaction.pk),
                       builder: (context, purchasedSnapshot) {
-                        if (purchasedSnapshot.connectionState == ConnectionState.waiting) {
-                          return ListTile(title: Text('Loading purchased items...'));
+                        if (purchasedSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return ListTile(
+                              title: Text('Loading purchased items...'));
                         } else if (purchasedSnapshot.hasError) {
-                          return ListTile(title: Text('Error: ${purchasedSnapshot.error}'));
-                        } else if (!purchasedSnapshot.hasData || purchasedSnapshot.data!.isEmpty) {
+                          return ListTile(
+                              title: Text('Error: ${purchasedSnapshot.error}'));
+                        } else if (!purchasedSnapshot.hasData ||
+                            purchasedSnapshot.data!.isEmpty) {
                           return ListTile(title: Text('No items found'));
                         } else {
                           return Column(
                             children: purchasedSnapshot.data!
-                              .map((purchasedItem) => ListTile(
-                                title: Text('Book Title: ${getBookTitle(purchasedItem.fields.book)}'),
-                                subtitle: Text('Quantity: ${purchasedItem.fields.quantity}'),
-                              )).toList(),
+                                .map((purchasedItem) => ListTile(
+                                      title: Text(
+                                          'Book Title: ${getBookTitle(purchasedItem.fields.book)}'),
+                                      subtitle: Text(
+                                          'Quantity: ${purchasedItem.fields.quantity}'),
+                                    ))
+                                .toList(),
                           );
                         }
                       },

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pageperfectmobile/modules/member/screens/BookPage.dart';
 import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
 import 'package:pageperfectmobile/screens/temporary/menu.dart';
+import 'package:pageperfectmobile/screens/umum/user.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-
 
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
@@ -16,7 +16,7 @@ class LoginApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(), 
+      home: const LoginPage(),
     );
   }
 }
@@ -49,10 +49,6 @@ class _LoginPageState extends State<LoginPage> {
         );
         break;
       case 'Employee':
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => MyHomePage()),
-        );
         break;
     }
   }
@@ -99,6 +95,14 @@ class _LoginPageState extends State<LoginPage> {
                   String message = response['message'];
                   String uname = response['username'];
                   String role = response['role'] ?? 'unknown';
+                  int money = 0;
+
+                  if (role == "Member") {
+                    money = response['money'];
+                  }
+
+                  loggedInUser =
+                      UserData(isLoggedIn: true, username: uname, money: money);
 
                   navigateBasedOnRole(role);
 
