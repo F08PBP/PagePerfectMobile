@@ -35,6 +35,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
       throw Exception('Failed to load books from the server');
     }
   }
+  
 
   Future<List<Book>> getRandomRecommendations(
       Future<List<Book>> booksFuture, int count) async {
