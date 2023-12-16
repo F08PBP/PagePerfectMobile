@@ -27,7 +27,13 @@ class _CartPageState extends State<CartPage> {
 
   Future<Map<int, double>> fetchBookPrices() async {
     var books = await fetchBooks(); // Make sure this is an async call
-    return {for (var book in books) book.pk: book.fields.harga?.toDouble() ?? 0.0};
+    var bookPrices = <int, double>{};
+    for (var book in books) {
+      if (book.pk != null && book.fields?.harga != null) {
+        bookPrices[book.pk!] = book.fields!.harga!.toDouble();
+      }
+    }
+    return bookPrices;
   }
 
   Future<List<Book>> fetchBooks() async {
@@ -39,7 +45,6 @@ class _CartPageState extends State<CartPage> {
     if (response.statusCode == 200) {
       var books = bookFromJson(response.body);
       // Simpan harga buku ke dalam _bookPrices untuk digunakan nanti
-      _bookPrices = {for (var book in books) book.pk: book.fields.harga?.toDouble() ?? 0.0};
       return books;
     } else {
       throw Exception('Failed to load books from the server');
@@ -48,7 +53,13 @@ class _CartPageState extends State<CartPage> {
 
   double calculateTotal(List<Cart> cartItems) {
     // Hitung total harga dengan menggunakan harga buku dari _bookPrices
-    return cartItems.fold(0, (total, current) => total + (_bookPrices[current.fields.book] ?? 0) * current.fields.quantity);
+      if (_bookPrices == null) {
+      return 0.0;
+    }
+    return cartItems.fold(0, (total, current) {
+      final bookPrice = _bookPrices[current.fields.book];
+      return total + (bookPrice ?? 0) * current.fields.quantity;
+    });
   }
 
   @override
@@ -56,6 +67,14 @@ class _CartPageState extends State<CartPage> {
     super.initState();
     _cartFuture = fetchCartItems();
     _booksFuture = fetchBooks();
+    // Fetch book prices and update _bookPrices
+    fetchBookPrices().then((prices) {
+      setState(() {
+        _bookPrices = prices;
+      });
+    }).catchError((error) {
+      print('Error fetching book prices: $error');
+    });
   }
 
   @override
@@ -84,6 +103,9 @@ class _CartPageState extends State<CartPage> {
                     itemBuilder: (context, index) {
                       final item = cartItems[index].fields;
                       // Ambil harga buku dari _bookPrices menggunakan book ID
+                      if (_bookPrices == null) {
+                        return CircularProgressIndicator();
+                      }
                       double bookPrice = _bookPrices[item.book] ?? 0;
                       return ListTile(
                         title: Text('Book ID: ${item.book}'), // Tempatkan judul buku yang sebenarnya di sini

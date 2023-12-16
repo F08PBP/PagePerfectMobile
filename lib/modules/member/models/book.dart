@@ -33,20 +33,20 @@ class Book {
 }
 
 class Fields {
-    int? bookId;
+    int bookId;
     String title;
-    String? authors;
-    double? averageRating;
-    String? isbn;
-    int? isbn13;
-    LanguageCode? languageCode;
-    int? numPages;
-    int? ratingsCount;
-    int? textReviewsCount;
-    String? publicationDate;
-    String? publisher;
-    int? harga;
-    int? jumlahBuku;
+    String authors;
+    double averageRating;
+    String isbn;
+    int isbn13;
+    LanguageCode languageCode;
+    int numPages;
+    int ratingsCount;
+    int textReviewsCount;
+    String publicationDate;
+    String publisher;
+    int harga;
+    int jumlahBuku;
     int jumlahTerjual;
     StatusAccept statusAccept;
     bool isInCatalog;
@@ -125,10 +125,14 @@ final languageCodeValues = EnumValues({
 });
 
 enum StatusAccept {
+    ACCEPT,
+    DENIED,
     WAITING
 }
 
 final statusAcceptValues = EnumValues({
+    "ACCEPT": StatusAccept.ACCEPT,
+    "DENIED": StatusAccept.DENIED,
     "WAITING": StatusAccept.WAITING
 });
 

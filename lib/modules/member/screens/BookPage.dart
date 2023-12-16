@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:pageperfectmobile/modules/member/models/book.dart';
 import 'package:pageperfectmobile/modules/member/widgets/bottom_navbar.dart';
+import 'package:pageperfectmobile/screens/umum/user.dart';
 
 class BookListPage extends StatefulWidget {
   @override
@@ -12,14 +13,23 @@ class BookListPage extends StatefulWidget {
 }
 
 class _BookListPageState extends State<BookListPage> {
+  TextEditingController searchController = TextEditingController();
   List<Book> _books = [];
   bool _isLoading = true;
-  String _username = 'tesakun'; // Placeholder for username
-  int _eWalletBalance = 110000; // Placeholder for e-wallet balance
+  String _username = loggedInUser.username;
+  int _eWalletBalance = loggedInUser.money;
+
+  String searchQuery = '';
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -69,13 +79,40 @@ class _BookListPageState extends State<BookListPage> {
                       'Here are some book recommendations!',
                       style: TextStyle(fontSize: 16.0, color: Colors.white),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: searchController,
+                              style: TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
+                                hintText: 'Search by Title',
+                                hintStyle: TextStyle(color: Colors.white), // Set hint text color
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white), // Set border color
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white), // Set border color when focused
+                                ),
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  searchQuery = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-              // Container for book list - This should be modified to contain your book list
               Container(
                 height: MediaQuery.of(context).size.height, // Adjust the height as needed
-                child: buildAllBooks(context),
+                child: buildAllBooks(context, title: searchQuery),
               ),
             ],
           ),
