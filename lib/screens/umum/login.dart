@@ -1,13 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:pageperfectmobile/modules/member/screens/BookPage.dart';
+import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
+import 'package:pageperfectmobile/screens/temporary/menu.dart';
+import 'package:pageperfectmobile/screens/umum/user.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:pageperfectmobile/screens/temporary/menu.dart';
-
-void main() {
-  runApp(const LoginApp());
-}
 
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
@@ -28,13 +25,33 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // Fungsi untuk menavigasi berdasarkan role pengguna
+  void navigateBasedOnRole(String role) {
+    switch (role) {
+      //Sesuaiin aja
+      case 'Member':
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeMemberPage()),
+        );
+        break;
+      case 'Writer':
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage()),
+        );
+        break;
+      case 'Employee':
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                 String username = _usernameController.text;
                 String password = _passwordController.text;
 
-                // Cek kredensial
-                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                // Untuk menyambungkan Android emulator dengan Django pada localhost,
-                // gunakan URL http://10.0.2.2/
                 final response =
-                    await request.login("https://localhost:8000/auth/login/", {
+                    await request.login("http://127.0.0.1:8000/auth/login/", {
                   'username': username,
                   'password': password,
                 });
@@ -81,10 +94,18 @@ class _LoginPageState extends State<LoginPage> {
                 if (request.loggedIn) {
                   String message = response['message'];
                   String uname = response['username'];
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
-                  );
+                  String role = response['role'] ?? 'unknown';
+                  int money = 0;
+
+                  if (role == "Member") {
+                    money = response['money'];
+                  }
+
+                  loggedInUser =
+                      UserData(isLoggedIn: true, username: uname, money: money);
+
+                  navigateBasedOnRole(role);
+
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(SnackBar(
