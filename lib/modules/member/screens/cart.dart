@@ -14,6 +14,7 @@ class _CartPageState extends State<CartPage> {
   late Future<List<Book>> _booksFuture;
   late Map<int, double> _bookPrices;
   late Map<int, String> _bookTitles;
+  late String _totalPrice;
 
   Future<List<Cart>> fetchCartItems() async {
     var url = Uri.parse(
@@ -157,6 +158,8 @@ class _CartPageState extends State<CartPage> {
                             _cartFuture, // Pastikan menggunakan Future yang tepat
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
+                            _totalPrice =
+                                calculateTotal(snapshot.data!).toString();
                             return Text(
                               '\Rp${calculateTotal(snapshot.data!).toStringAsFixed(2)}',
                               style: TextStyle(
@@ -187,7 +190,7 @@ class _CartPageState extends State<CartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               ElevatedButton(
-                onPressed: () => showCheckoutSheet(context),
+                onPressed: () => showCheckoutSheet(context, _totalPrice),
                 style: ElevatedButton.styleFrom(primary: Colors.white),
                 child: Text(
                   'Checkout',

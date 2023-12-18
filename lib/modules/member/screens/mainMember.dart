@@ -159,7 +159,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Jumlah saldo E-Wallet: $_eWalletBalance',
+                        'Jumlah saldo E-Wallet: Rp$_eWalletBalance',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -331,7 +331,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                                 Text(
-                                                  'Price: \$${fields.harga}',
+                                                  'Price: \Rp${fields.harga}',
                                                   style: TextStyle(
                                                       fontSize: 14.0,
                                                       fontWeight:
@@ -454,7 +454,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                         style: TextStyle(color: Colors.grey),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis),
-                                    Text('\$${fields.harga}',
+                                    Text('\Rp${fields.harga}',
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .primaryColor)),
