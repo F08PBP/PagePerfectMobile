@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pageperfectmobile/modules/member/models/book.dart';
@@ -17,7 +15,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Map<int, String> _bookTitles = {};
 
   Future<List<Transaksi>> fetchTransactions() async {
-    var url = Uri.parse('http://127.0.0.1:8000/member/show-transaction/');
+    var url = Uri.parse(
+        // 'http://10.0.2.2:8000/member/show-transaction/'
+        'http://127.0.0.1:8000/member/show-transaction/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -29,6 +29,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
 
   Future<List<Purchased>> fetchPurchasedItems(int transactionId) async {
     var url = Uri.parse(
+        //'http://10.0.2.2:8000/member/show-purchased-json/$transactionId'
         'http://127.0.0.1:8000/member/show-purchased-json/$transactionId');
     var response = await http.get(url);
 
@@ -40,7 +41,9 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   }
 
   Future<List<Book>> fetchBooks() async {
-    var baseUrl = 'http://127.0.0.1:8000/member/get-book-json/';
+    var baseUrl =
+        // 'http://10.0.2.2:8000/member/get-book-json/';
+        'http://127.0.0.1:8000/member/get-book-json/';
     var url = Uri.parse(baseUrl);
 
     var response =

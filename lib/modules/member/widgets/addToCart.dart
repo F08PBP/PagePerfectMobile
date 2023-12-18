@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -96,7 +95,9 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
 
 Future<void> addCart(BuildContext context, String title, int quantity) async {
   final response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/member/add_book_to_cart_flutter/'),
+    Uri.parse(
+        // 'http://10.0.2.2:8000/member/add_book_to_cart_flutter/'
+        'http://127.0.0.1:8000/member/add_book_to_cart_flutter/'),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },

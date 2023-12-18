@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:pageperfectmobile/modules/member/screens/history.dart';
 import 'package:pageperfectmobile/modules/member/widgets/addToCart.dart';
 import 'dart:convert';
-
 import 'package:pageperfectmobile/modules/member/widgets/bottom_navbar.dart';
 import 'package:pageperfectmobile/screens/umum/user.dart';
 
@@ -18,10 +17,11 @@ class HomeMemberPage extends StatefulWidget {
 
 class _HomeMemberPageState extends State<HomeMemberPage> {
   final String _username = loggedInUser.username; // Placeholder for username
-  final int _eWalletBalance =
-      loggedInUser.money; // Placeholder for e-wallet balance
+  int _eWalletBalance = loggedInUser.money; // Placeholder for e-wallet balance
   late Future<List<Book>> _booksFuture;
   late Future<List<Book>> _recommendedBooks;
+  final _formKey = GlobalKey<FormState>();
+  int _formUang = 0;
 
   Future<List<Book>> fetchBooks() async {
     var url = Uri.parse('http://127.0.0.1:8000/member/get-book-json/');
@@ -35,7 +35,6 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
       throw Exception('Failed to load books from the server');
     }
   }
-  
 
   Future<List<Book>> getRandomRecommendations(
       Future<List<Book>> booksFuture, int count) async {
@@ -54,6 +53,38 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
     }
 
     return indexes.map((index) => books[index]).toList();
+  }
+
+  Future<void> topUp(BuildContext context, String uang) async {
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/member/add-money-flutter/'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        'uang': uang,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      var responseData = jsonDecode(response.body);
+      // Update user money
+      loggedInUser.money = responseData['money'];
+      setState(() {
+        _eWalletBalance = loggedInUser.money;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Top Up success!')),
+      );
+      Navigator.of(context).pop(
+        MaterialPageRoute(builder: (context) => HomeMemberPage()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to Top Up.')),
+      );
+    }
   }
 
   @override
@@ -138,7 +169,57 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                       SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
-                          // Top Up E-Wallet logic
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  scrollable: true,
+                                  title: Text('Masukkan Jumlah Uang'),
+                                  content: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Form(
+                                      key: _formKey,
+                                      child: Column(
+                                        children: <Widget>[
+                                          TextFormField(
+                                              decoration: InputDecoration(
+                                                labelText: 'Uang',
+                                                icon: Icon(Icons.attach_money),
+                                              ),
+                                              onChanged: (String? value) {
+                                                setState(() {
+                                                  _formUang = int.parse(value!);
+                                                });
+                                              },
+                                              validator: (String? value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Nilai tidak boleh kosong';
+                                                }
+                                                if (int.tryParse(value) ==
+                                                    null) {
+                                                  return 'Nilai harus berupa angka';
+                                                }
+                                                return null;
+                                              }),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                        child: Text("Submit"),
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            topUp(
+                                                context, _formUang.toString());
+                                          }
+                                          _formKey.currentState!.reset();
+                                        })
+                                  ],
+                                );
+                              });
                         },
                         child: Text('Top Up E-Wallet'),
                         style: ElevatedButton.styleFrom(

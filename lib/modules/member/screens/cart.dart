@@ -13,9 +13,12 @@ class _CartPageState extends State<CartPage> {
   late Future<List<Cart>> _cartFuture;
   late Future<List<Book>> _booksFuture;
   late Map<int, double> _bookPrices;
+  late Map<int, String> _bookTitles;
 
   Future<List<Cart>> fetchCartItems() async {
-    var url = Uri.parse('http://127.0.0.1:8000/member/show-cart-json/');
+    var url = Uri.parse(
+        // 'http://10.0.2.2:8000/member/show-cart-json/'
+        'http://127.0.0.1:8000/member/show-cart-json/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -36,11 +39,24 @@ class _CartPageState extends State<CartPage> {
     return bookPrices;
   }
 
+  Future<Map<int, String>> fetchBookTitles() async {
+    var books = await fetchBooks();
+    var bookTitles = <int, String>{};
+    for (var book in books) {
+      if (book.pk != null && book.fields?.title != null) {
+        bookTitles[book.pk!] = book.fields!.title!;
+      }
+    }
+    return bookTitles;
+  }
+
   Future<List<Book>> fetchBooks() async {
     var baseUrl = 'http://127.0.0.1:8000/member/get-book-json/';
+    // 'http://10.0.2.2:8000/member/get-book-json/';
     var url = Uri.parse(baseUrl);
 
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
       var books = bookFromJson(response.body);
@@ -53,7 +69,7 @@ class _CartPageState extends State<CartPage> {
 
   double calculateTotal(List<Cart> cartItems) {
     // Hitung total harga dengan menggunakan harga buku dari _bookPrices
-      if (_bookPrices == null) {
+    if (_bookPrices == null) {
       return 0.0;
     }
     return cartItems.fold(0, (total, current) {
@@ -74,6 +90,14 @@ class _CartPageState extends State<CartPage> {
       });
     }).catchError((error) {
       print('Error fetching book prices: $error');
+    });
+    // Fetch book titles and update _bookTitles
+    fetchBookTitles().then((titles) {
+      setState(() {
+        _bookTitles = titles;
+      });
+    }).catchError((error) {
+      print('Error fetching book titles: $error');
     });
   }
 
@@ -107,10 +131,13 @@ class _CartPageState extends State<CartPage> {
                         return CircularProgressIndicator();
                       }
                       double bookPrice = _bookPrices[item.book] ?? 0;
+                      String bookTitle = _bookTitles[item.book] ?? 'No title';
                       return ListTile(
-                        title: Text('Book ID: ${item.book}'), // Tempatkan judul buku yang sebenarnya di sini
+                        title: Text(
+                            'Book Title: ${bookTitle}'), // Tempatkan judul buku yang sebenarnya di sini
                         subtitle: Text('Quantity: ${item.quantity}'),
-                        trailing: Text('\$${bookPrice.toStringAsFixed(2)}'), // Tampilkan harga buku yang sebenarnya
+                        trailing: Text(
+                            '\Rp${bookPrice.toStringAsFixed(2)}'), // Tampilkan harga buku yang sebenarnya
                       );
                     },
                   ),
@@ -122,20 +149,24 @@ class _CartPageState extends State<CartPage> {
                     children: <Widget>[
                       Text(
                         'Total:',
-                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold),
                       ),
                       FutureBuilder<List<Cart>>(
-                        future: _cartFuture, // Pastikan menggunakan Future yang tepat
+                        future:
+                            _cartFuture, // Pastikan menggunakan Future yang tepat
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return Text(
-                              '\$${calculateTotal(snapshot.data!).toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                              '\Rp${calculateTotal(snapshot.data!).toStringAsFixed(2)}',
+                              style: TextStyle(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
                             );
                           } else {
                             return Text(
                               '\$0.00',
-                              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 18.0, fontWeight: FontWeight.bold),
                             );
                           }
                         },
@@ -170,4 +201,3 @@ class _CartPageState extends State<CartPage> {
     );
   }
 }
-

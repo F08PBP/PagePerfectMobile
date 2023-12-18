@@ -4,74 +4,76 @@
 
 import 'dart:convert';
 
-List<Book> bookFromJson(String str) => List<Book>.from(json.decode(str).map((x) => Book.fromJson(x)));
+List<Book> bookFromJson(String str) =>
+    List<Book>.from(json.decode(str).map((x) => Book.fromJson(x)));
 
-String bookToJson(List<Book> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String bookToJson(List<Book> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Book {
-    Model model;
-    int pk;
-    Fields fields;
+  Model model;
+  int pk;
+  Fields fields;
 
-    Book({
-        required this.model,
-        required this.pk,
-        required this.fields,
-    });
+  Book({
+    required this.model,
+    required this.pk,
+    required this.fields,
+  });
 
-    factory Book.fromJson(Map<String, dynamic> json) => Book(
+  factory Book.fromJson(Map<String, dynamic> json) => Book(
         model: modelValues.map[json["model"]]!,
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "model": modelValues.reverse[model],
         "pk": pk,
         "fields": fields.toJson(),
-    };
+      };
 }
 
 class Fields {
-    int bookId;
-    String title;
-    String authors;
-    double averageRating;
-    String isbn;
-    int isbn13;
-    LanguageCode languageCode;
-    int numPages;
-    int ratingsCount;
-    int textReviewsCount;
-    String publicationDate;
-    String publisher;
-    int harga;
-    int jumlahBuku;
-    int jumlahTerjual;
-    StatusAccept statusAccept;
-    bool isInCatalog;
+  int bookId;
+  String title;
+  String authors;
+  double averageRating;
+  String isbn;
+  int isbn13;
+  LanguageCode languageCode;
+  int numPages;
+  int ratingsCount;
+  int textReviewsCount;
+  String publicationDate;
+  String publisher;
+  int harga;
+  int jumlahBuku;
+  int jumlahTerjual;
+  StatusAccept statusAccept;
+  bool isInCatalog;
 
-    Fields({
-        required this.bookId,
-        required this.title,
-        required this.authors,
-        required this.averageRating,
-        required this.isbn,
-        required this.isbn13,
-        required this.languageCode,
-        required this.numPages,
-        required this.ratingsCount,
-        required this.textReviewsCount,
-        required this.publicationDate,
-        required this.publisher,
-        required this.harga,
-        required this.jumlahBuku,
-        required this.jumlahTerjual,
-        required this.statusAccept,
-        required this.isInCatalog,
-    });
+  Fields({
+    required this.bookId,
+    required this.title,
+    required this.authors,
+    required this.averageRating,
+    required this.isbn,
+    required this.isbn13,
+    required this.languageCode,
+    required this.numPages,
+    required this.ratingsCount,
+    required this.textReviewsCount,
+    required this.publicationDate,
+    required this.publisher,
+    required this.harga,
+    required this.jumlahBuku,
+    required this.jumlahTerjual,
+    required this.statusAccept,
+    required this.isInCatalog,
+  });
 
-    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+  factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         bookId: json["bookID"],
         title: json["title"],
         authors: json["authors"],
@@ -89,9 +91,9 @@ class Fields {
         jumlahTerjual: json["jumlah_terjual"],
         statusAccept: statusAcceptValues.map[json["statusAccept"]]!,
         isInCatalog: json["isInCatalog"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "bookID": bookId,
         "title": title,
         "authors": authors,
@@ -109,49 +111,37 @@ class Fields {
         "jumlah_terjual": jumlahTerjual,
         "statusAccept": statusAcceptValues.reverse[statusAccept],
         "isInCatalog": isInCatalog,
-    };
+      };
 }
 
-enum LanguageCode {
-    ENG,
-    EN_US,
-    FRE
-}
+enum LanguageCode { ENG, EN_US, FRE }
 
 final languageCodeValues = EnumValues({
-    "eng": LanguageCode.ENG,
-    "en-US": LanguageCode.EN_US,
-    "fre": LanguageCode.FRE
+  "eng": LanguageCode.ENG,
+  "en-US": LanguageCode.EN_US,
+  "fre": LanguageCode.FRE
 });
 
-enum StatusAccept {
-    ACCEPT,
-    DENIED,
-    WAITING
-}
+enum StatusAccept { ACCEPT, DENIED, WAITING }
 
 final statusAcceptValues = EnumValues({
-    "ACCEPT": StatusAccept.ACCEPT,
-    "DENIED": StatusAccept.DENIED,
-    "WAITING": StatusAccept.WAITING
+  "ACCEPT": StatusAccept.ACCEPT,
+  "DENIED": StatusAccept.DENIED,
+  "WAITING": StatusAccept.WAITING
 });
 
-enum Model {
-    BOOK_BOOK
-}
+enum Model { BOOK_BOOK }
 
-final modelValues = EnumValues({
-    "book.book": Model.BOOK_BOOK
-});
+final modelValues = EnumValues({"book.book": Model.BOOK_BOOK});
 
 class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
 
-    EnumValues(this.map);
+  EnumValues(this.map);
 
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

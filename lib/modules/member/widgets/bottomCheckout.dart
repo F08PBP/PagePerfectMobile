@@ -71,7 +71,9 @@ void showCheckoutSheet(BuildContext context) {
 
 Future<void> buyBook(BuildContext context, String notes) async {
   final response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/member/confirm_purchase_flutter/'),
+    Uri.parse(
+        // 'http://10.0.2.2:8000/member/confirm_purchase_flutter/'
+        'http://127.0.0.1:8000/member/confirm_purchase_flutter/'),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
