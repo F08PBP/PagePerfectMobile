@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         );
         break;
       case 'Writer':
+        //Sesuaiin aja sama modul masing2
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => MyHomePage()),
@@ -103,11 +104,13 @@ class _LoginPageState extends State<LoginPage> {
                   int money = 0;
 
                   if (role == "Member") {
-                    money = response['money'];
+                    money = response['money'] ?? 0;
                   }
 
                   loggedInUser =
                       UserData(isLoggedIn: true, username: uname, money: money);
+
+                  print(role);
 
                   navigateBasedOnRole(role);
 
