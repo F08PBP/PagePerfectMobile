@@ -9,6 +9,9 @@ import 'package:pageperfectmobile/modules/member/widgets/addToCart.dart';
 import 'dart:convert';
 import 'package:pageperfectmobile/modules/member/widgets/bottom_navbar.dart';
 import 'package:pageperfectmobile/screens/umum/user.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:pageperfectmobile/screens/umum/login.dart';
 
 class HomeMemberPage extends StatefulWidget {
   @override
@@ -97,23 +100,38 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Books'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () {
-              // Implement the logout logic here
+            onPressed: () async {
+              final response =
+                  await request.logout('http://127.0.0.1:8000/auth/logout/');
+              String message = response["message"];
+              if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message Sampai jumpa, $uname."),
+                ));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(message),
+                ));
+              }
             },
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: Center(
               child: GestureDetector(
-                onTap: () {
-                  // Implement the same logout logic here
-                },
+                onTap: () {},
                 child: Text(
                   'Logout',
                   style: TextStyle(fontSize: 16.0),
@@ -159,7 +177,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Jumlah saldo E-Wallet: $_eWalletBalance',
+                        'Jumlah saldo E-Wallet: Rp$_eWalletBalance',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -331,7 +349,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                                 Text(
-                                                  'Price: \$${fields.harga}',
+                                                  'Price: \Rp${fields.harga}',
                                                   style: TextStyle(
                                                       fontSize: 14.0,
                                                       fontWeight:
@@ -454,7 +472,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                         style: TextStyle(color: Colors.grey),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis),
-                                    Text('\$${fields.harga}',
+                                    Text('\Rp${fields.harga}',
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .primaryColor)),

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
 import 'dart:convert';
+import 'package:pageperfectmobile/modules/member/screens/cart.dart';
 
 import 'package:pageperfectmobile/screens/umum/user.dart';
 
-void showCheckoutSheet(BuildContext context) {
+void showCheckoutSheet(BuildContext context, String totalPrice) {
   // This controller will keep track of the input in the TextField.
   TextEditingController notesController = TextEditingController();
 
@@ -19,7 +20,7 @@ void showCheckoutSheet(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Total Price: 100000',
+              'Total Price: Rp$totalPrice',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
@@ -95,7 +96,7 @@ Future<void> buyBook(BuildContext context, String notes) async {
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to Buy the book.')),
+      SnackBar(content: Text('Failed to Buy the book')),
     );
   }
 }
