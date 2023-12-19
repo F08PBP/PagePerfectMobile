@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pageperfectmobile/modules/employee/screens/mainEmployee.dart';
 import 'package:pageperfectmobile/modules/member/screens/BookPage.dart';
 import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
 import 'package:pageperfectmobile/screens/temporary/menu.dart';
@@ -50,10 +51,9 @@ class _LoginPageState extends State<LoginPage> {
         );
         break;
       case 'Employee':
-        //Sesuaiin aja sama modul masing2
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyHomePage()),
+          MaterialPageRoute(builder: (context) => EmployeePage()),
         );
         break;
     }
