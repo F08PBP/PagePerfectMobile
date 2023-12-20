@@ -6,6 +6,7 @@ import 'package:pageperfectmobile/screens/umum/login.dart';
 import 'package:pageperfectmobile/screens/umum/user.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pageperfectmobile/screens/umum/landing.dart';
 
 class EmployeePage extends StatefulWidget {
   @override
@@ -25,14 +26,14 @@ class _EmployeePageState extends State<EmployeePage> {
       String message = response["message"];
 
       if (response['status']) {
-        String uname = response["username"];
+        String uname = username;
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("$message Sampai jumpa, $uname."),
         ));
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const LoginPage()),
+          MaterialPageRoute(builder: (context) => LandingPage()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

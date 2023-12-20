@@ -5,6 +5,7 @@ import 'package:pageperfectmobile/screens/umum/login.dart';
 import 'package:pageperfectmobile/modules/writer/screens/book_form.dart';
 import 'package:pageperfectmobile/modules/writer/screens/list_book.dart';
 import 'package:pageperfectmobile/modules/writer/screens/list_book_status.dart';
+import 'package:pageperfectmobile/screens/umum/landing.dart';
 
 String loggedUsername = "";
 
@@ -47,13 +48,13 @@ class WriterComponentCard extends StatelessWidget {
                 "https://pageperfect-f08.adaptable.app/auth/logout/");
             String message = response["message"];
             if (response['status']) {
-              String uname = response["username"];
+              String uname = loggedUsername;
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text("$message Sampai jumpa, $uname."),
               ));
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
+                MaterialPageRoute(builder: (context) => LandingPage()),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(

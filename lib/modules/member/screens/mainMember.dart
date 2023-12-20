@@ -113,11 +113,11 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              final response =
-                  await request.logout('https://pageperfect-f08.adaptable.app/auth/logout/');
+              final response = await request
+                  .logout('https://pageperfect-f08.adaptable.app/auth/logout/');
               String message = response["message"];
               if (response['status']) {
-                String uname = response["username"];
+                String uname = _username;
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("$message Sampai jumpa, $uname."),
                 ));

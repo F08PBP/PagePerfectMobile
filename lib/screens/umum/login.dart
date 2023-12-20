@@ -6,6 +6,7 @@ import 'package:pageperfectmobile/screens/temporary/menu.dart';
 import 'package:pageperfectmobile/screens/umum/user.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pageperfectmobile/modules/writer/screens/writer_page.dart';
 
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
@@ -47,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         //Sesuaiin aja sama modul masing2
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyHomePage()),
+          MaterialPageRoute(builder: (context) => HomeWriterPage()),
         );
         break;
       case 'Employee':
