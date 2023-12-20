@@ -5,6 +5,8 @@ import 'package:pageperfectmobile/modules/member/models/purchased_book.dart';
 import 'package:pageperfectmobile/modules/member/models/transaction.dart';
 
 class TransactionHistoryPage extends StatefulWidget {
+  const TransactionHistoryPage({super.key});
+
   @override
   _TransactionHistoryPageState createState() => _TransactionHistoryPageState();
 }
@@ -51,8 +53,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
 
     if (response.statusCode == 200) {
       List<Book> books = bookFromJson(response.body);
-      _bookTitles = Map.fromIterable(books,
-          key: (book) => book.pk, value: (book) => book.fields.title);
+      _bookTitles = { for (var book in books) book.pk : book.fields.title };
       return books;
     } else {
       throw Exception('Failed to load books');
@@ -74,17 +75,17 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction History'),
+        title: const Text('Transaction History'),
       ),
       body: FutureBuilder<List<Transaksi>>(
         future: _transactionsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No transactions found'));
+            return const Center(child: Text('No transactions found'));
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,
@@ -102,14 +103,14 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
                       builder: (context, purchasedSnapshot) {
                         if (purchasedSnapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return ListTile(
+                          return const ListTile(
                               title: Text('Loading purchased items...'));
                         } else if (purchasedSnapshot.hasError) {
                           return ListTile(
                               title: Text('Error: ${purchasedSnapshot.error}'));
                         } else if (!purchasedSnapshot.hasData ||
                             purchasedSnapshot.data!.isEmpty) {
-                          return ListTile(title: Text('No items found'));
+                          return const ListTile(title: Text('No items found'));
                         } else {
                           return Column(
                             children: purchasedSnapshot.data!

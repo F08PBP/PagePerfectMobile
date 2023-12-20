@@ -13,31 +13,31 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Title: $bookTitle',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'Stok: $jumlahBuku',
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'Terjual: $jumlahTerjual',
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.remove, color: Colors.blue),
+                      icon: const Icon(Icons.remove, color: Colors.blue),
                       onPressed: () {
                         if (quantity > 1) {
                           setState(() {
@@ -46,9 +46,9 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
                         }
                       },
                     ),
-                    Text('$quantity', style: TextStyle(fontSize: 18)),
+                    Text('$quantity', style: const TextStyle(fontSize: 18)),
                     IconButton(
-                      icon: Icon(Icons.add, color: Colors.blue),
+                      icon: const Icon(Icons.add, color: Colors.blue),
                       onPressed: () {
                         setState(() {
                           quantity++;
@@ -57,7 +57,7 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -67,20 +67,18 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue, // Background color
-                        onPrimary: Colors.white, // Text color
+                        foregroundColor: Colors.white, backgroundColor: Colors.blue, // Text color
                       ),
-                      child: Text('Add to Cart'),
+                      child: const Text('Add to Cart'),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Background color
-                        onPrimary: Colors.white, // Text color
+                        foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
                       ),
-                      child: Text('Cancel'),
+                      child: const Text('Cancel'),
                     ),
                   ],
                 ),
@@ -109,11 +107,11 @@ Future<void> addCart(BuildContext context, String title, int quantity) async {
 
   if (response.statusCode == 200) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Cart success!')),
+      const SnackBar(content: Text('Cart success!')),
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to add to the cart.')),
+      const SnackBar(content: Text('Failed to add to the cart.')),
     );
   }
 }

@@ -12,7 +12,7 @@ FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
     var url = Uri.parse(baseUrl);
 
     if (title.isNotEmpty) {
-      url = Uri.parse(baseUrl + title + '/');
+      url = Uri.parse('$baseUrl$title/');
     }
 
     var response =
@@ -45,7 +45,7 @@ FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
           itemBuilder: (context, index) {
             Book book = snapshot.data![index];
             if (book.fields != null) {
-              Fields fields = book.fields!;
+              Fields fields = book.fields;
 
               return GestureDetector(
                 onTap: () {
@@ -53,7 +53,7 @@ FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
+                    color: const Color(0xFFEEEEEE),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   margin: const EdgeInsets.all(12),
@@ -103,23 +103,20 @@ FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            if (fields.title != null && fields.harga != null) {
-                              showAddToCartSheet(
-                                  context,
-                                  fields.title!,
-                                  fields.harga!,
-                                  fields.jumlahTerjual!,
-                                  fields.jumlahBuku!);
-                            }
-                          },
-                          child: Text('Add to Cart'),
+                            showAddToCartSheet(
+                                context,
+                                fields.title,
+                                fields.harga,
+                                fields.jumlahTerjual,
+                                fields.jumlahBuku);
+                                                    },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blueAccent, // Button color
-                            onPrimary: Colors.white, // Text color
-                            shape: RoundedRectangleBorder(
+                            foregroundColor: Colors.white, backgroundColor: Colors.blueAccent, // Text color
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero, // Square corners
                             ),
                           ),
+                          child: const Text('Add to Cart'),
                         ),
                       ],
                     ),
@@ -133,7 +130,7 @@ FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text('Book information not available'),
                 ),
               );

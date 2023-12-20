@@ -7,18 +7,19 @@ import 'package:pageperfectmobile/modules/member/models/book.dart';
 import 'package:pageperfectmobile/modules/member/widgets/bottom_navbar.dart';
 import 'package:pageperfectmobile/screens/umum/user.dart';
 import 'package:http/http.dart' as http;
-import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
 
 class BookListPage extends StatefulWidget {
+  const BookListPage({super.key});
+
   @override
   _BookListPageState createState() => _BookListPageState();
 }
 
 class _BookListPageState extends State<BookListPage> {
   TextEditingController searchController = TextEditingController();
-  List<Book> _books = [];
-  bool _isLoading = true;
-  String _username = loggedInUser.username;
+  final List<Book> _books = [];
+  final bool _isLoading = true;
+  final String _username = loggedInUser.username;
   int _eWalletBalance = loggedInUser.money;
   int _formUang = 0;
   final _formKey = GlobalKey<FormState>();
@@ -45,14 +46,14 @@ class _BookListPageState extends State<BookListPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Top Up success!')),
+        const SnackBar(content: Text('Top Up success!')),
       );
       Navigator.of(context).pop(
-        MaterialPageRoute(builder: (context) => BookListPage()),
+        MaterialPageRoute(builder: (context) => const BookListPage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to Top Up.')),
+        const SnackBar(content: Text('Failed to Top Up.')),
       );
     }
   }
@@ -72,14 +73,14 @@ class _BookListPageState extends State<BookListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Books'),
+        title: const Text('Books'),
       ),
       body: Stack(
         fit: StackFit.expand,
         children: [
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
@@ -99,14 +100,14 @@ class _BookListPageState extends State<BookListPage> {
                   children: [
                     Text(
                       'Welcome $_username',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
                     Text(
                       'Jumlah saldo E-Wallet: $_eWalletBalance',
-                      style: TextStyle(fontSize: 16.0, color: Colors.white),
+                      style: const TextStyle(fontSize: 16.0, color: Colors.white),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -115,7 +116,7 @@ class _BookListPageState extends State<BookListPage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 scrollable: true,
-                                title: Text('Masukkan Jumlah Uang'),
+                                title: const Text('Masukkan Jumlah Uang'),
                                 content: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Form(
@@ -123,7 +124,7 @@ class _BookListPageState extends State<BookListPage> {
                                     child: Column(
                                       children: <Widget>[
                                         TextFormField(
-                                            decoration: InputDecoration(
+                                            decoration: const InputDecoration(
                                               labelText: 'Uang',
                                               icon: Icon(Icons.attach_money),
                                             ),
@@ -148,7 +149,7 @@ class _BookListPageState extends State<BookListPage> {
                                 ),
                                 actions: [
                                   ElevatedButton(
-                                      child: Text("Submit"),
+                                      child: const Text("Submit"),
                                       onPressed: () {
                                         if (_formKey.currentState!.validate()) {
                                           topUp(context, _formUang.toString());
@@ -159,9 +160,9 @@ class _BookListPageState extends State<BookListPage> {
                               );
                             });
                       },
-                      child: Text('Top Up E-Wallet'),
+                      child: const Text('Top Up E-Wallet'),
                     ),
-                    Text(
+                    const Text(
                       'Here are some book recommendations!',
                       style: TextStyle(fontSize: 16.0, color: Colors.white),
                     ),
@@ -172,7 +173,7 @@ class _BookListPageState extends State<BookListPage> {
                           Expanded(
                             child: TextField(
                               controller: searchController,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               decoration: const InputDecoration(
                                 hintText: 'Search by Title',
                                 hintStyle: TextStyle(
@@ -200,7 +201,7 @@ class _BookListPageState extends State<BookListPage> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context)
                     .size
                     .height, // Adjust the height as needed

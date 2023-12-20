@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:pageperfectmobile/screens/umum/login.dart';
 
 class HomeMemberPage extends StatefulWidget {
+  const HomeMemberPage({super.key});
+
   @override
   _HomeMemberPageState createState() => _HomeMemberPageState();
 }
@@ -50,7 +52,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
       return books;
     }
 
-    var indexes = Set<int>();
+    var indexes = <int>{};
     while (indexes.length < count) {
       indexes.add(random.nextInt(books.length));
     }
@@ -78,14 +80,14 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Top Up success!')),
+        const SnackBar(content: Text('Top Up success!')),
       );
       Navigator.of(context).pop(
-        MaterialPageRoute(builder: (context) => HomeMemberPage()),
+        MaterialPageRoute(builder: (context) => const HomeMemberPage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to Top Up.')),
+        const SnackBar(content: Text('Failed to Top Up.')),
       );
     }
   }
@@ -103,10 +105,10 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Books'),
+        title: const Text('Books'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () async {
               final response =
                   await request.logout('http://127.0.0.1:8000/auth/logout/');
@@ -128,11 +130,11 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
             },
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Center(
               child: GestureDetector(
                 onTap: () {},
-                child: Text(
+                child: const Text(
                   'Logout',
                   style: TextStyle(fontSize: 16.0),
                 ),
@@ -146,7 +148,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
         children: <Widget>[
           // Background image
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'),
                 fit: BoxFit.cover,
@@ -169,22 +171,22 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                     children: <Widget>[
                       Text(
                         'Welcome $_username',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Jumlah saldo E-Wallet: Rp$_eWalletBalance',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -192,7 +194,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   scrollable: true,
-                                  title: Text('Masukkan Jumlah Uang'),
+                                  title: const Text('Masukkan Jumlah Uang'),
                                   content: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Form(
@@ -200,7 +202,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                       child: Column(
                                         children: <Widget>[
                                           TextFormField(
-                                              decoration: InputDecoration(
+                                              decoration: const InputDecoration(
                                                 labelText: 'Uang',
                                                 icon: Icon(Icons.attach_money),
                                               ),
@@ -226,7 +228,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                   ),
                                   actions: [
                                     ElevatedButton(
-                                        child: Text("Submit"),
+                                        child: const Text("Submit"),
                                         onPressed: () {
                                           if (_formKey.currentState!
                                               .validate()) {
@@ -239,29 +241,27 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                 );
                               });
                         },
-                        child: Text('Top Up E-Wallet'),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue, // Button background color
-                          onPrimary: Colors.white, // Button text color
+                          foregroundColor: Colors.white, backgroundColor: Colors.blue, // Button text color
                         ),
+                        child: const Text('Top Up E-Wallet'),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => TransactionHistoryPage(),
+                              builder: (context) => const TransactionHistoryPage(),
                             ),
                           );
                         },
-                        child: Text('History'),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.orange, // Button background color
-                          onPrimary: Colors.white, // Button text color
+                          foregroundColor: Colors.white, backgroundColor: Colors.orange, // Button text color
                         ),
+                        child: const Text('History'),
                       ),
-                      SizedBox(height: 16),
-                      Text(
+                      const SizedBox(height: 16),
+                      const Text(
                         'Here are some book recommendations!',
                         style: TextStyle(
                           color: Colors.white,
@@ -273,14 +273,14 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                   ),
                 ),
 
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height *
                       0.2, // Adjust the height as needed
                   child: FutureBuilder<List<Book>>(
                     future: _recommendedBooks, // Use the future here
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                             child:
                                 CircularProgressIndicator()); // Show loading indicator while waiting
                       } else if (snapshot.hasError) {
@@ -288,7 +288,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                             child: Text(
                                 'Error: ${snapshot.error}')); // Handle errors
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(
+                        return const Center(
                             child: Text(
                                 'No books found')); // Handle empty or null data
                       } else {
@@ -302,12 +302,12 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                             Book book = books[
                                 index]; // Get the book at the current index
                             if (book.fields != null) {
-                              Fields fields = book.fields!;
-                              return Container(
+                              Fields fields = book.fields;
+                              return SizedBox(
                                 width: 250, // Set a fixed width for each item
                                 child: Card(
                                   elevation: 4.0,
-                                  margin: EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(10),
                                   child: InkWell(
                                     onTap: () {
                                       // Handle book tap, navigate to book detail or perform other action
@@ -331,8 +331,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                                   MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  '${fields.title}',
-                                                  style: TextStyle(
+                                                  fields.title,
+                                                  style: const TextStyle(
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -343,14 +343,14 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                                 Text(
                                                   'Author: ${fields.authors}',
                                                   style:
-                                                      TextStyle(fontSize: 14.0),
+                                                      const TextStyle(fontSize: 14.0),
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),
                                                 Text(
-                                                  'Price: \Rp${fields.harga}',
-                                                  style: TextStyle(
+                                                  'Price: Rp${fields.harga}',
+                                                  style: const TextStyle(
                                                       fontSize: 14.0,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -374,7 +374,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                   color: Colors.grey[300],
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text('Book information not available'),
                                 ),
                               );
@@ -391,7 +391,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                       vertical: 20.0, horizontal: 10.0),
                   child: Row(
                     children: [
-                      Text(
+                      const Text(
                         "List Book",
                         style: TextStyle(
                           color: Colors.white,
@@ -409,31 +409,30 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                             // Navigate to more books page
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => BookListPage()),
+                                  builder: (context) => const BookListPage()),
                             );
                           },
-                          child: Text('More'),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blue, // Button color
-                            onPrimary: Colors.white, // Text color
+                            foregroundColor: Colors.white, backgroundColor: Colors.blue, // Text color
                           ),
+                          child: const Text('More'),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Container(
+                const SizedBox(height: 20),
+                SizedBox(
                   height: 200,
                   child: FutureBuilder<List<Book>>(
                     future: _booksFuture,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(child: Text('No books found'));
+                        return const Center(child: Text('No books found'));
                       } else {
                         var books = snapshot.data!.take(10).toList();
                         return ListView.builder(
@@ -442,10 +441,10 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                           itemBuilder: (context, index) {
                             Book book = books[index];
                             if (book.fields != null) {
-                              Fields fields = book.fields!;
+                              Fields fields = book.fields;
                               return Container(
                                 width: 120,
-                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -453,7 +452,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                     BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
                                         blurRadius: 6,
-                                        offset: Offset(0, 3)),
+                                        offset: const Offset(0, 3)),
                                   ],
                                 ),
                                 child: Column(
@@ -463,16 +462,16 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                       child: Icon(Icons.book,
                                           size: 100, color: Colors.grey[700]),
                                     ),
-                                    Text('${fields.title}',
-                                        style: TextStyle(
+                                    Text(fields.title,
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis),
                                     Text('Penulis: ${fields.authors}',
-                                        style: TextStyle(color: Colors.grey),
+                                        style: const TextStyle(color: Colors.grey),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis),
-                                    Text('\Rp${fields.harga}',
+                                    Text('Rp${fields.harga}',
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .primaryColor)),
@@ -480,18 +479,17 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                       onPressed: () {
                                         showAddToCartSheet(
                                             context,
-                                            '${fields.title}',
-                                            fields.harga!,
-                                            fields.jumlahTerjual!,
-                                            fields.jumlahBuku!);
+                                            fields.title,
+                                            fields.harga,
+                                            fields.jumlahTerjual,
+                                            fields.jumlahBuku);
                                       },
-                                      child: Text('Add to Cart'),
                                       style: ElevatedButton.styleFrom(
-                                        primary: Colors.blueAccent,
-                                        onPrimary: Colors.white,
-                                        shape: RoundedRectangleBorder(
+                                        foregroundColor: Colors.white, backgroundColor: Colors.blueAccent,
+                                        shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.zero),
                                       ),
+                                      child: const Text('Add to Cart'),
                                     ),
                                   ],
                                 ),
@@ -503,7 +501,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                   color: Colors.grey[300],
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text('Book information not available'),
                                 ),
                               );

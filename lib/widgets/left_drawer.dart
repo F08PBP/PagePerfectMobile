@@ -52,9 +52,9 @@ class LeftDrawer extends StatelessWidget {
                   ));
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('Tambah Produk'),
+          const ListTile(
+            leading: Icon(Icons.add_shopping_cart),
+            title: Text('Tambah Produk'),
             // Bagian redirection ke ShopFormPage
             // onTap: () {
             //   Navigator.push(
@@ -63,9 +63,9 @@ class LeftDrawer extends StatelessWidget {
             //           builder: (context) => const ShopFormPage()));
             // },
           ),
-          ListTile(
-            leading: const Icon(Icons.shopping_basket),
-            title: const Text('Daftar Produk'),
+          const ListTile(
+            leading: Icon(Icons.shopping_basket),
+            title: Text('Daftar Produk'),
             // onTap: () {
             //   // Route menu ke halaman produk
             //   Navigator.push(
