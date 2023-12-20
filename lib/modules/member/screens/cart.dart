@@ -5,6 +5,8 @@ import 'package:pageperfectmobile/modules/member/widgets/bottomCheckout.dart';
 import 'package:http/http.dart' as http;
 
 class CartPage extends StatefulWidget {
+  const CartPage({super.key});
+
   @override
   _CartPageState createState() => _CartPageState();
 }
@@ -33,10 +35,8 @@ class _CartPageState extends State<CartPage> {
     var books = await fetchBooks(); // Make sure this is an async call
     var bookPrices = <int, double>{};
     for (var book in books) {
-      if (book.pk != null && book.fields?.harga != null) {
-        bookPrices[book.pk!] = book.fields!.harga!.toDouble();
-      }
-    }
+      bookPrices[book.pk] = book.fields.harga.toDouble();
+        }
     return bookPrices;
   }
 
@@ -44,10 +44,8 @@ class _CartPageState extends State<CartPage> {
     var books = await fetchBooks();
     var bookTitles = <int, String>{};
     for (var book in books) {
-      if (book.pk != null && book.fields?.title != null) {
-        bookTitles[book.pk!] = book.fields!.title!;
-      }
-    }
+      bookTitles[book.pk] = book.fields.title;
+        }
     return bookTitles;
   }
 
@@ -106,18 +104,18 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Your Cart'),
+        title: const Text('Your Cart'),
         backgroundColor: Colors.green,
       ),
       body: FutureBuilder<List<Cart>>(
         future: _cartFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Your cart is empty'));
+            return const Center(child: Text('Your cart is empty'));
           } else {
             List<Cart> cartItems = snapshot.data!;
             return Column(
@@ -129,26 +127,26 @@ class _CartPageState extends State<CartPage> {
                       final item = cartItems[index].fields;
                       // Ambil harga buku dari _bookPrices menggunakan book ID
                       if (_bookPrices == null) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }
                       double bookPrice = _bookPrices[item.book] ?? 0;
                       String bookTitle = _bookTitles[item.book] ?? 'No title';
                       return ListTile(
                         title: Text(
-                            'Book Title: ${bookTitle}'), // Tempatkan judul buku yang sebenarnya di sini
+                            'Book Title: $bookTitle'), // Tempatkan judul buku yang sebenarnya di sini
                         subtitle: Text('Quantity: ${item.quantity}'),
                         trailing: Text(
-                            '\Rp${bookPrice.toStringAsFixed(2)}'), // Tampilkan harga buku yang sebenarnya
+                            'Rp${bookPrice.toStringAsFixed(2)}'), // Tampilkan harga buku yang sebenarnya
                       );
                     },
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Total:',
                         style: TextStyle(
                             fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -161,12 +159,12 @@ class _CartPageState extends State<CartPage> {
                             _totalPrice =
                                 calculateTotal(snapshot.data!).toString();
                             return Text(
-                              '\Rp${calculateTotal(snapshot.data!).toStringAsFixed(2)}',
-                              style: TextStyle(
+                              'Rp${calculateTotal(snapshot.data!).toStringAsFixed(2)}',
+                              style: const TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
                             );
                           } else {
-                            return Text(
+                            return const Text(
                               '\$0.00',
                               style: TextStyle(
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -184,15 +182,15 @@ class _CartPageState extends State<CartPage> {
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.green,
-        child: Container(
+        child: SizedBox(
           height: 60.0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               ElevatedButton(
                 onPressed: () => showCheckoutSheet(context, _totalPrice),
-                style: ElevatedButton.styleFrom(primary: Colors.white),
-                child: Text(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                child: const Text(
                   'Checkout',
                   style: TextStyle(color: Colors.green),
                 ),
