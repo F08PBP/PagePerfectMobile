@@ -19,7 +19,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Future<List<Transaksi>> fetchTransactions() async {
     var url = Uri.parse(
         // 'http://10.0.2.2:8000/member/show-transaction/'
-        'http://127.0.0.1:8000/member/show-transaction/');
+        'https://pageperfect-f08.adaptable.app/member/show-transaction/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -32,7 +32,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Future<List<Purchased>> fetchPurchasedItems(int transactionId) async {
     var url = Uri.parse(
         //'http://10.0.2.2:8000/member/show-purchased-json/$transactionId'
-        'http://127.0.0.1:8000/member/show-purchased-json/$transactionId');
+        'https://pageperfect-f08.adaptable.app/member/show-purchased-json/$transactionId');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -45,7 +45,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
   Future<List<Book>> fetchBooks() async {
     var baseUrl =
         // 'http://10.0.2.2:8000/member/get-book-json/';
-        'http://127.0.0.1:8000/member/get-book-json/';
+        'https://pageperfect-f08.adaptable.app/member/get-book-json/';
     var url = Uri.parse(baseUrl);
 
     var response =
@@ -53,7 +53,7 @@ class _TransactionHistoryPageState extends State<TransactionHistoryPage> {
 
     if (response.statusCode == 200) {
       List<Book> books = bookFromJson(response.body);
-      _bookTitles = { for (var book in books) book.pk : book.fields.title };
+      _bookTitles = {for (var book in books) book.pk: book.fields.title};
       return books;
     } else {
       throw Exception('Failed to load books');

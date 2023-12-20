@@ -30,7 +30,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
   int _formUang = 0;
 
   Future<List<Book>> fetchBooks() async {
-    var url = Uri.parse('http://127.0.0.1:8000/member/get-book-json/');
+    var url = Uri.parse(
+        'https://pageperfect-f08.adaptable.app/member/get-book-json/');
     var response =
         await http.get(url, headers: {"Content-Type": "application/json"});
 
@@ -63,7 +64,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
 
   Future<void> topUp(BuildContext context, String uang) async {
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/member/add-money-flutter/'),
+      Uri.parse(
+          'https://pageperfect-f08.adaptable.app/member/add-money-flutter/'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -112,7 +114,7 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
             icon: const Icon(Icons.logout),
             onPressed: () async {
               final response =
-                  await request.logout('http://127.0.0.1:8000/auth/logout/');
+                  await request.logout('https://pageperfect-f08.adaptable.app/auth/logout/');
               String message = response["message"];
               if (response['status']) {
                 String uname = response["username"];
@@ -243,7 +245,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                               });
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white, backgroundColor: Colors.blue, // Button text color
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.blue, // Button text color
                         ),
                         child: const Text('Top Up E-Wallet'),
                       ),
@@ -252,12 +255,14 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const TransactionHistoryPage(),
+                              builder: (context) =>
+                                  const TransactionHistoryPage(),
                             ),
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white, backgroundColor: Colors.orange, // Button text color
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.orange, // Button text color
                         ),
                         child: const Text('History'),
                       ),
@@ -343,8 +348,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                                 ),
                                                 Text(
                                                   'Author: ${fields.authors}',
-                                                  style:
-                                                      const TextStyle(fontSize: 14.0),
+                                                  style: const TextStyle(
+                                                      fontSize: 14.0),
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -414,7 +419,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: Colors.blue, // Text color
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blue, // Text color
                           ),
                           child: const Text('More'),
                         ),
@@ -445,7 +451,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                               Fields fields = book.fields;
                               return Container(
                                 width: 120,
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -469,7 +476,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis),
                                     Text('Penulis: ${fields.authors}',
-                                        style: const TextStyle(color: Colors.grey),
+                                        style:
+                                            const TextStyle(color: Colors.grey),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis),
                                     Text('Rp${fields.harga}',
@@ -486,7 +494,8 @@ class _HomeMemberPageState extends State<HomeMemberPage> {
                                             fields.jumlahBuku);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.white, backgroundColor: Colors.blueAccent,
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Colors.blueAccent,
                                         shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.zero),
                                       ),

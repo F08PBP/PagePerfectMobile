@@ -45,7 +45,8 @@ void showCheckoutSheet(BuildContext context, String totalPrice) {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.green,
                   ),
                   child: const Text('Buy'),
                 ),
@@ -54,7 +55,8 @@ void showCheckoutSheet(BuildContext context, String totalPrice) {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.red,
                   ),
                   child: const Text('Cancel'),
                 ),
@@ -71,7 +73,7 @@ Future<void> buyBook(BuildContext context, String notes) async {
   final response = await http.post(
     Uri.parse(
         // 'http://10.0.2.2:8000/member/confirm_purchase_flutter/'
-        'http://127.0.0.1:8000/member/confirm_purchase_flutter/'),
+        'https://pageperfect-f08.adaptable.app/member/confirm_purchase_flutter/'),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },

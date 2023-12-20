@@ -21,7 +21,7 @@ class _CartPageState extends State<CartPage> {
   Future<List<Cart>> fetchCartItems() async {
     var url = Uri.parse(
         // 'http://10.0.2.2:8000/member/show-cart-json/'
-        'http://127.0.0.1:8000/member/show-cart-json/');
+        'https://pageperfect-f08.adaptable.app/member/show-cart-json/');
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -36,7 +36,7 @@ class _CartPageState extends State<CartPage> {
     var bookPrices = <int, double>{};
     for (var book in books) {
       bookPrices[book.pk] = book.fields.harga.toDouble();
-        }
+    }
     return bookPrices;
   }
 
@@ -45,12 +45,12 @@ class _CartPageState extends State<CartPage> {
     var bookTitles = <int, String>{};
     for (var book in books) {
       bookTitles[book.pk] = book.fields.title;
-        }
+    }
     return bookTitles;
   }
 
   Future<List<Book>> fetchBooks() async {
-    var baseUrl = 'http://127.0.0.1:8000/member/get-book-json/';
+    var baseUrl = 'https://pageperfect-f08.adaptable.app/member/get-book-json/';
     // 'http://10.0.2.2:8000/member/get-book-json/';
     var url = Uri.parse(baseUrl);
 

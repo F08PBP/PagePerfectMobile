@@ -13,8 +13,10 @@ class _MainCatalogPageState extends State<MainCatalogPage> {
   late Future<List<Book>> booksFuture;
 
   Future<List<Book>> fetchBooks() async {
-    var url = Uri.parse('http://127.0.0.1:8000/employee/get-catalog-json/');
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var url = Uri.parse(
+        'https://pageperfect-f08.adaptable.app/employee/get-catalog-json/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
       List<dynamic> booksJson = jsonDecode(response.body);
@@ -76,7 +78,8 @@ class _MainCatalogPageState extends State<MainCatalogPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BookDetailsPage(book: book),
+                                builder: (context) =>
+                                    BookDetailsPage(book: book),
                               ),
                             );
                           },
@@ -156,7 +159,6 @@ class _MainCatalogPageState extends State<MainCatalogPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Stock added successfully!')),
                         );
-                        
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Failed to add stock')),
@@ -175,9 +177,9 @@ class _MainCatalogPageState extends State<MainCatalogPage> {
   }
 }
 
-
 Future<bool> addBookStock(int bookId, int addedStock) async {
-  var url = Uri.parse('http://127.0.0.1:8000/employee/add-book-stock/');
+  var url = Uri.parse(
+      'https://pageperfect-f08.adaptable.app/employee/add-book-stock/');
   var response = await http.post(
     url,
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},

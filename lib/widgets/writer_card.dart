@@ -31,9 +31,7 @@ class ShopCard extends StatelessWidget {
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
           if (item.name == "Tambah Produk") {
-
           } else if (item.name == "Lihat Produk") {
-            
           } else if (item.name == "Logout") {
             final response = await request.logout(
                 // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!

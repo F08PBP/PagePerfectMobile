@@ -14,13 +14,13 @@ class EmployeePage extends StatefulWidget {
 
 class _EmployeePageState extends State<EmployeePage> {
   String username = loggedInUser.username;
-  
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-  void _handleLogout() async {
-      final response = await request.logout("http://127.0.0.1:8000/auth/logout/");
+    void _handleLogout() async {
+      final response = await request
+          .logout("https://pageperfect-f08.adaptable.app/auth/logout/");
 
       String message = response["message"];
 
@@ -40,32 +40,33 @@ class _EmployeePageState extends State<EmployeePage> {
         ));
       }
     }
+
     return Scaffold(
       appBar: AppBar(
-      title: Text('Employee'),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.logout),
-          onPressed: () {
-            _handleLogout();
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                // Implement the same logout logic here
-              },
-              child: Text(
-                'Logout',
-                style: TextStyle(fontSize: 16.0),
+        title: Text('Employee'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              _handleLogout();
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child: GestureDetector(
+                onTap: () {
+                  // Implement the same logout logic here
+                },
+                child: Text(
+                  'Logout',
+                  style: TextStyle(fontSize: 16.0),
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    ),
+        ],
+      ),
       body: Stack(
         children: [
           Container(
@@ -115,7 +116,8 @@ class _EmployeePageState extends State<EmployeePage> {
                   onPressed: () {
                     // Action for "Catalog Book"
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => MainCatalogPage()),
+                      MaterialPageRoute(
+                          builder: (context) => MainCatalogPage()),
                     );
                   },
                   child: Text('Catalog Book'),
@@ -128,7 +130,8 @@ class _EmployeePageState extends State<EmployeePage> {
                   onPressed: () {
                     // Action for "Setting Book"
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ActiveBooksPage()),
+                      MaterialPageRoute(
+                          builder: (context) => ActiveBooksPage()),
                     );
                   },
                   child: Text('Setting Book'),
@@ -141,7 +144,8 @@ class _EmployeePageState extends State<EmployeePage> {
                   onPressed: () {
                     // Action for "Book From Writer"
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => BookFromWriterPage()),
+                      MaterialPageRoute(
+                          builder: (context) => BookFromWriterPage()),
                     );
                   },
                   child: Text('Book From Writer'),

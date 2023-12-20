@@ -8,7 +8,7 @@ import 'package:pageperfectmobile/modules/member/widgets/addToCart.dart';
 FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
     {String title = ''}) {
   Future<List<Book>> fetchBooks() async {
-    var baseUrl = 'http://127.0.0.1:8000/member/get-book-json/';
+    var baseUrl = 'https://pageperfect-f08.adaptable.app/member/get-book-json/';
     var url = Uri.parse(baseUrl);
 
     if (title.isNotEmpty) {
@@ -109,9 +109,10 @@ FutureBuilder<List<Book>> buildAllBooks(BuildContext context,
                                 fields.harga,
                                 fields.jumlahTerjual,
                                 fields.jumlahBuku);
-                                                    },
+                          },
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: Colors.blueAccent, // Text color
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blueAccent, // Text color
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero, // Square corners
                             ),

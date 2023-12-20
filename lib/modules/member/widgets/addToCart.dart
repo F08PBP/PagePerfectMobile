@@ -20,7 +20,8 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
               children: [
                 Text(
                   'Title: $bookTitle',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -67,7 +68,8 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.blue, // Text color
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.blue, // Text color
                       ),
                       child: const Text('Add to Cart'),
                     ),
@@ -76,7 +78,8 @@ void showAddToCartSheet(BuildContext context, String bookTitle, int bookPrice,
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.red, // Text color
                       ),
                       child: const Text('Cancel'),
                     ),
@@ -95,7 +98,7 @@ Future<void> addCart(BuildContext context, String title, int quantity) async {
   final response = await http.post(
     Uri.parse(
         // 'http://10.0.2.2:8000/member/add_book_to_cart_flutter/'
-        'http://127.0.0.1:8000/member/add_book_to_cart_flutter/'),
+        'https://pageperfect-f08.adaptable.app/member/add_book_to_cart_flutter/'),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },

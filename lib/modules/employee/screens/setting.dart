@@ -31,8 +31,10 @@ class _ActiveBooksPageState extends State<ActiveBooksPage> {
   }
 
   Future<List<Catalog>> fetchCatalog() async {
-    var url = Uri.parse('http://127.0.0.1:8000/employee/get-active-json/');
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var url = Uri.parse(
+        'https://pageperfect-f08.adaptable.app/employee/get-active-json/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
     if (response.statusCode == 200) {
       return catalogFromJson(response.body);
     } else {
@@ -41,8 +43,10 @@ class _ActiveBooksPageState extends State<ActiveBooksPage> {
   }
 
   Future<List<Book>> fetchBooks() async {
-    var url = Uri.parse('http://127.0.0.1:8000/employee/get-catalog-json/');
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var url = Uri.parse(
+        'https://pageperfect-f08.adaptable.app/employee/get-catalog-json/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
     if (response.statusCode == 200) {
       List<dynamic> booksJson = jsonDecode(response.body);
       return booksJson.map((json) => Book.fromJson(json)).toList();
@@ -52,9 +56,11 @@ class _ActiveBooksPageState extends State<ActiveBooksPage> {
   }
 
   void toggleCatalogVisibility(Catalog catalog) async {
-    var url = Uri.parse('http://127.0.0.1:8000/employee/catalog/toggle-visibility/${catalog.pk}/');
-    var response = await http.post(url, headers: {"Content-Type": "application/json"});
-    
+    var url = Uri.parse(
+        'https://pageperfect-f08.adaptable.app/employee/catalog/toggle-visibility/${catalog.pk}/');
+    var response =
+        await http.post(url, headers: {"Content-Type": "application/json"});
+
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse['success']) {
@@ -67,10 +73,10 @@ class _ActiveBooksPageState extends State<ActiveBooksPage> {
       }
     } else {
       // Handle the error
-      print('Failed to toggle visibility with status code: ${response.statusCode}');
+      print(
+          'Failed to toggle visibility with status code: ${response.statusCode}');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +109,9 @@ class _ActiveBooksPageState extends State<ActiveBooksPage> {
                     children: [
                       IconButton(
                         icon: Icon(
-                          catalogItem.fields.isShowToMember ? Icons.visibility : Icons.visibility_off,
+                          catalogItem.fields.isShowToMember
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                         ),
                         onPressed: () => toggleCatalogVisibility(catalogItem),
                       ),

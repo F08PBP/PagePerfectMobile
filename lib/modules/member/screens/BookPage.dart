@@ -28,7 +28,8 @@ class _BookListPageState extends State<BookListPage> {
 
   Future<void> topUp(BuildContext context, String uang) async {
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8000/member/add-money-flutter/'),
+      Uri.parse(
+          'https://pageperfect-f08.adaptable.app/member/add-money-flutter/'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -107,7 +108,8 @@ class _BookListPageState extends State<BookListPage> {
                     ),
                     Text(
                       'Jumlah saldo E-Wallet: $_eWalletBalance',
-                      style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                      style:
+                          const TextStyle(fontSize: 16.0, color: Colors.white),
                     ),
                     ElevatedButton(
                       onPressed: () {

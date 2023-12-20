@@ -14,8 +14,10 @@ class _BookFromWriterPageState extends State<BookFromWriterPage> {
   late Future<List<Book>> booksFuture;
 
   Future<List<Book>> fetchBooks() async {
-    var url = Uri.parse('http://127.0.0.1:8000/employee/get-book-json/');
-    var response = await http.get(url, headers: {"Content-Type": "application/json"});
+    var url = Uri.parse(
+        'https://pageperfect-f08.adaptable.app/employee/get-book-json/');
+    var response =
+        await http.get(url, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
       List<dynamic> booksJson = jsonDecode(response.body);
@@ -69,7 +71,8 @@ class _BookFromWriterPageState extends State<BookFromWriterPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BookDetailsPage(book: book),
+                                builder: (context) =>
+                                    BookDetailsPage(book: book),
                               ),
                             );
                           },
@@ -78,15 +81,22 @@ class _BookFromWriterPageState extends State<BookFromWriterPage> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            bool success = await updateBookStatus(book.pk, "ACCEPT");
+                            bool success =
+                                await updateBookStatus(book.pk, "ACCEPT");
                             if (success) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Book status updated to ACCEPT')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Book status updated to ACCEPT')));
                               // Reload the list of books
                               setState(() {
                                 booksFuture = fetchBooks();
                               });
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update book status')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Failed to update book status')));
                             }
                           },
                           child: Text('ACCEPT'),
@@ -94,15 +104,22 @@ class _BookFromWriterPageState extends State<BookFromWriterPage> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            bool success = await updateBookStatus(book.pk, "DENIED");
+                            bool success =
+                                await updateBookStatus(book.pk, "DENIED");
                             if (success) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Book status updated to ACCEPT')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Book status updated to ACCEPT')));
                               // Reload the list of books
                               setState(() {
                                 booksFuture = fetchBooks();
                               });
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update book status')));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Failed to update book status')));
                             }
                           },
                           child: Text('DENIED'),
@@ -133,8 +150,10 @@ class _BookFromWriterPageState extends State<BookFromWriterPage> {
 }
 
 Future<bool> updateBookStatus(int bookId, String newStatus) async {
-  var url = Uri.parse('http://127.0.0.1:8000/employee/update-book-status/$bookId/$newStatus/');
-  var response = await http.post(url, headers: {"Content-Type": "application/json"});
+  var url = Uri.parse(
+      'https://pageperfect-f08.adaptable.app/employee/update-book-status/$bookId/$newStatus/');
+  var response =
+      await http.post(url, headers: {"Content-Type": "application/json"});
 
   if (response.statusCode == 200) {
     // Jika status berhasil diubah
