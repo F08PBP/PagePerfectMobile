@@ -41,7 +41,7 @@ class Fields {
   double averageRating;
   String isbn;
   int isbn13;
-  LanguageCode languageCode;
+  String languageCode;
   int numPages;
   int ratingsCount;
   int textReviewsCount;
@@ -50,7 +50,7 @@ class Fields {
   int harga;
   int jumlahBuku;
   int jumlahTerjual;
-  StatusAccept statusAccept;
+  String statusAccept;
   bool isInCatalog;
 
   Fields({
@@ -77,19 +77,19 @@ class Fields {
         bookId: json["bookID"],
         title: json["title"],
         authors: json["authors"],
-        averageRating: json["average_rating"]?.toDouble(),
-        isbn: json["isbn"],
-        isbn13: json["isbn13"],
-        languageCode: languageCodeValues.map[json["language_code"]]!,
-        numPages: json["num_pages"],
-        ratingsCount: json["ratings_count"],
-        textReviewsCount: json["text_reviews_count"],
-        publicationDate: json["publication_date"],
-        publisher: json["publisher"],
+        averageRating: json["average_rating"]?.toDouble() ?? 0,
+        isbn: json["isbn"] ?? "p",
+        isbn13: json["isbn13"] ?? 0,
+        languageCode: json["language_code"] ?? "eng",
+        numPages: json["num_pages"] ?? 0,
+        ratingsCount: json["ratings_count"] ?? 0,
+        textReviewsCount: json["text_reviews_count"] ?? 0,
+        publicationDate: json["publication_date"] ?? "p",
+        publisher: json["publisher"] ?? "p",
         harga: json["harga"],
         jumlahBuku: json["jumlah_buku"],
         jumlahTerjual: json["jumlah_terjual"],
-        statusAccept: statusAcceptValues.map[json["statusAccept"]]!,
+        statusAccept: json["statusAccept"],
         isInCatalog: json["isInCatalog"],
       );
 

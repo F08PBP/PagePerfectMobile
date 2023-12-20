@@ -5,11 +5,11 @@ Widget buildFloatingCartIcon(BuildContext context) {
   return FloatingActionButton(
     onPressed: () {
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => CartPage()),
+          MaterialPageRoute(builder: (context) => const CartPage()),
       );
-    },
-    child: Icon(Icons.shopping_cart, color: Colors.white), // Cart icon
+    }, // Cart icon
     backgroundColor: Colors.green, // Set your preferred background color
-    elevation: 10, // Add elevation for a shadow
+    elevation: 10,
+    child: const Icon(Icons.shopping_cart, color: Colors.white), // Add elevation for a shadow
   );
 }

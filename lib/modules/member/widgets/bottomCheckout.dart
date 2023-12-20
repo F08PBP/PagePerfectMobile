@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
 import 'dart:convert';
-import 'package:pageperfectmobile/modules/member/screens/cart.dart';
 
 import 'package:pageperfectmobile/screens/umum/user.dart';
 
@@ -14,26 +13,26 @@ void showCheckoutSheet(BuildContext context, String totalPrice) {
     context: context,
     builder: (BuildContext context) {
       return Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         height: 250, // Increased height to accommodate the notes TextField
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Total Price: Rp$totalPrice',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: notesController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Notes',
                 hintText: 'Any special requests or notes?',
                 border: OutlineInputBorder(),
               ),
               maxLines: 2, // Allows for multi-line input
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -46,20 +45,18 @@ void showCheckoutSheet(BuildContext context, String totalPrice) {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white, backgroundColor: Colors.green,
                   ),
-                  child: Text('Buy'),
+                  child: const Text('Buy'),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white, backgroundColor: Colors.red,
                   ),
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                 ),
               ],
             ),
@@ -89,14 +86,14 @@ Future<void> buyBook(BuildContext context, String notes) async {
     loggedInUser.money = responseData['money'];
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Buy success!')),
+      const SnackBar(content: Text('Buy success!')),
     );
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomeMemberPage()),
+      MaterialPageRoute(builder: (context) => const HomeMemberPage()),
     );
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to Buy the book')),
+      const SnackBar(content: Text('Failed to Buy the book')),
     );
   }
 }
