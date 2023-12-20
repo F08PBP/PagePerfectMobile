@@ -138,7 +138,7 @@ class HomeWriterPage extends StatelessWidget {
                 child: Text(
                   loggedUsername,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -156,13 +156,10 @@ class HomeWriterPage extends StatelessWidget {
               //   ),
               // ),
               // Grid layout
-              GridView.count(
+              ListView(
                 // Container pada card kita.
                 primary: true,
                 padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 4,
                 shrinkWrap: true,
                 children: items.map((WriterComponent item) {
                   // Iterasi untuk setiap item
