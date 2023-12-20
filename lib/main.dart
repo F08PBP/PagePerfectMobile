@@ -3,6 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:pageperfectmobile/screens/umum/login.dart';
 import 'package:pageperfectmobile/screens/umum/register.dart';
+import 'package:pageperfectmobile/screens/umum/landing.dart';
 
 void main() {
   runApp(const MyApp());
