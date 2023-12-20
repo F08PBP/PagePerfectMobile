@@ -33,7 +33,6 @@ Website akan dibuat secara modern dengan dominasi color palette biru dan putih, 
 | ------------------- | ---------------------------------------------------------------------------- |
 | Register            | Modul untuk mendaftarkan user baru ke web. Saat melakukan registrasi, user diberikan opsi untuk memilih role sebagai Member, Writer, atau Employee. |
 | Login               | Modul untuk login ke web, dengan role user sesuai dengan pilihannya saat registrasi (Member, Writer, atau Employee). |
-| Rekomendasi Buku    | User yang masuk ke landing page web tetapi belum menjadi Member akan diberikan beberapa rekomendasi buku untuk menarik minat mereka. |
 
 ## Penjelasan modul - modul Member1
 | Modul                | Penjelasan                                                                   |
@@ -106,4 +105,5 @@ Writer |Mem-*publish* buku ke aplikasi untuk selanjutnya diproses oleh *Employee
 ## Berita Acara
 https://docs.google.com/spreadsheets/d/1Su2OBkcqqKxYDrN0p_m3vsAfPzEv0vd5dwr02b05mYI/edit#gid=0
 
-test
+## Link Aplikasi
+[![Build status](https://build.appcenter.ms/v0.1/apps/d2d945a6-51db-4d7d-8430-af46992eb916/branches/main/badge)](https://appcenter.ms)
