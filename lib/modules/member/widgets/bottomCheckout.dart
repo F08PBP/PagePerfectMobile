@@ -41,8 +41,6 @@ void showCheckoutSheet(BuildContext context, String totalPrice) {
                     final String notes = notesController.text;
 
                     buyBook(context, notes);
-
-                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -72,7 +70,6 @@ void showCheckoutSheet(BuildContext context, String totalPrice) {
 Future<void> buyBook(BuildContext context, String notes) async {
   final response = await http.post(
     Uri.parse(
-        // 'http://10.0.2.2:8000/member/confirm_purchase_flutter/'
         'https://pageperfect-f08.adaptable.app/member/confirm_purchase_flutter/'),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -84,16 +81,21 @@ Future<void> buyBook(BuildContext context, String notes) async {
 
   if (response.statusCode == 200) {
     var responseData = jsonDecode(response.body);
+
     // Update user money
     loggedInUser.money = responseData['money'];
 
+    // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Buy success!')),
     );
+
+    // Navigate to the MainMemberPage
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const HomeMemberPage()),
     );
   } else {
+    // Handle failure case
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Failed to Buy the book')),
     );
