@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:pageperfectmobile/modules/employee/screens/mainEmployee.dart';
+import 'package:pageperfectmobile/modules/member/screens/BookPage.dart';
 import 'package:pageperfectmobile/modules/member/screens/mainMember.dart';
 import 'package:pageperfectmobile/screens/umum/user.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -44,12 +46,17 @@ class _LoginPageState extends State<LoginPage> {
         );
         break;
       case 'Writer':
+        //Sesuaiin aja sama modul masing2
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomeWriterPage()),
         );
         break;
       case 'Employee':
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => EmployeePage()),
+        );
         break;
     }
   }
@@ -99,13 +106,15 @@ class _LoginPageState extends State<LoginPage> {
                   int money = 0;
 
                   if (role == "Member") {
-                    money = response['money'];
+                    money = response['money'] ?? 0;
                   } else if (role == "Writer") {
                     loggedUsername = uname;
                   }
 
                   loggedInUser =
                       UserData(isLoggedIn: true, username: uname, money: money);
+
+                  print(role);
 
                   navigateBasedOnRole(role);
 

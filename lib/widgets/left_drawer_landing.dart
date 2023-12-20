@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:pageperfectmobile/screens/umum/login.dart';
-import 'package:pageperfectmobile/screens/umum/login.dart';
-
 import '../screens/umum/register.dart';
-
+import 'package:pageperfectmobile/screens/umum/register.dart';
+import 'package:pageperfectmobile/screens/umum/login.dart';
+import 'package:pageperfectmobile/screens/umum/register.dart';
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
