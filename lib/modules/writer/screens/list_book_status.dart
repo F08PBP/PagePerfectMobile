@@ -120,8 +120,8 @@ class _ProductStatusPageState extends State<ProductStatusPage> {
                 child: Card(
                   elevation: 5,
                   child: SizedBox(
-                    width: 200,
-                    height: 150,
+                    width: 100,
+                    height: 50,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
