@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:pageperfectmobile/widgets/left_drawer_landing.dart';
 
@@ -34,9 +36,61 @@ class LandingPage extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Text(
-            'PagePerfect',
-            style: TextStyle(color: Colors.white, fontSize: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: [
+                    TextSpan(
+                      text: 'P',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none),
+                    ),
+                    TextSpan(
+                      text: 'age ',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          decoration: TextDecoration.none),
+                    ),
+                    TextSpan(
+                      text: 'P',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none),
+                    ),
+                    TextSpan(
+                      text: 'erfect',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          decoration: TextDecoration.none),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 16.0),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                color: Colors.black.withOpacity(0.5),
+                child: Text(
+                  'Got tired of missing out on releases from your favourite author? '
+                  'You have found a perfect solution...',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
         ),
       ),
