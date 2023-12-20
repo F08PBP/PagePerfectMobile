@@ -59,7 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 String password = _passwordController.text;
 
                 final response = await request.post(
-                  "http://127.0.0.1:8000/auth/register/",
+                  "https://pageperfect-f08.adaptable.app/auth/register/",
                   {
                     'username': username,
                     'password': password,
